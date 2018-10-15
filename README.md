@@ -1,2 +1,2 @@
 # Algorithms-and-Datastructure
-Exercises that i have to implement on my classes at my University of Technology
+Exercise from my Algorithm and Data Structure class on the University of Technology in Białystok. 
