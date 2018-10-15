@@ -51,6 +51,20 @@ function algorithmB(array) {
   return outData;
 }
 
+function algorithmC(array){
+  let t = array.length, w = 0, s = 0, x=array[0];
+  while(t--)
+  {
+      if(w > 0)
+          w += x;
+      else
+          w = x;
+      if(w > s)
+          s = w;
+  }
+  console.log(s);
+}
+
 let inDataRandom = [];
 let inData = [10, 31, -41, 59, 26, -53, 58, 97, -93, -23, 84];
 let txtData = [10, 31, -41, 59, 26, -53, 58, 97, -93, -23, 84];
@@ -63,25 +77,5 @@ console.log(algorithmA(inData));
 console.log(algorithmA(txtData));
 console.log(algorithmB(inData));
 console.log(algorithmB(txtData));
-
-// algorithmA(inData);
-//   for (let index = 1; index < inData.length; index++) {
-//   while (sum + inData[index] > sum && index < 10) {
-//     sum += inData[index];
-//     index++;
-//   }
-//   //   console.log(sum);
-//   sum = 0;
-//   outData[1] = index;
-// }
-// console.log(inData.reduce((a, b) => a + b, 0));
-// console.log(
-//   [31, -41].reduce((sum, value) => {
-//     console.log(sum);
-//     if (sum + value > sum) {
-//       sum += value;
-//     }
-//     return sum;
-//   }, 0)
-// );
-// Exercise from my Algorithm and Data Structure class on the University of Technology in Białystok.
+console.log(algorithmC(inData));
+console.log(algorithmC(txtData));
