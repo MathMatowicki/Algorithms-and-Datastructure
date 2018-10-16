@@ -79,3 +79,13 @@ console.log(algorithmB(inData));
 console.log(algorithmB(txtData));
 console.log(algorithmC(inData));
 console.log(algorithmC(txtData));
+
+function readFromTxt(){
+  document.getElementById('openFile').addEventListener('change', function(){
+    const fr = new FileReader();
+    fr.onload = function() {
+      document.getElementById('fileContents').textContent = this.result;
+    }
+    fr.readAsText(this.files[0]);
+  });
+}
