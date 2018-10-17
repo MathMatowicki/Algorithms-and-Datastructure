@@ -1,3 +1,13 @@
+function readFromTxt(){
+  document.getElementById('openFile').addEventListener('change', function(){
+    const fr = new FileReader();
+    fr.onload = function() {
+      document.getElementById('fileContents').textContent = this.result;
+    }
+    fr.readAsText(this.files[0]);
+  });
+}
+
 function compareNumbers(a, b) {
   return a - b;
 }
@@ -9,11 +19,9 @@ function getRandomInt(min, max) {
 }
 
 function algorithmA(array) {
-  let outData = [0, 0],
-    finalSum = array[0],
+  let outData = [0, 0], finalSum = array[0],
     sum = 0,
     counterOfConditions = 0;
-
   for (let i = 1; i < array.length; i++) {
     sum += array[i];
     for (let j = i + 1; j < array.length; j++) {
@@ -31,12 +39,7 @@ function algorithmA(array) {
 }
 
 function algorithmB(array) {
-  let max = 0,
-    p = 0,
-    k = 0,
-    sum = 0,
-    counter = 0,
-    outData = [];
+  let max = 0,  p = 0,k = 0,sum = 0, counter = 0, outData = [];
   for (let i = 0; i < array.length; i++) {
     sum += array[i];
     counter++;
@@ -51,41 +54,47 @@ function algorithmB(array) {
   return outData;
 }
 
-function algorithmC(array){
-  let t = array.length, w = 0, s = 0, x=array[0];
-  while(t--)
-  {
-      if(w > 0)
-          w += x;
-      else
-          w = x;
-      if(w > s)
-          s = w;
-  }
-  console.log(s);
-}
+// function algorithmC(array){
+//   let l = array.length, w = 0, s = 0, x=array[0],counter = 0, outData = [];
+//   while(l--)
+//   {
+//     counter++;
+//     if(w > 0){
+//       outData[1]=l;
+//       w += x;
+//     } else{
+//       w = x;
+//           outData[0] = l
+//       }
+//       if(w > s)
+//           s = w;
+//   }
+//   console.log(counter + " counter of Conditions in algorithm C");
+//   console.log(s);
+//   if(outData.length != 2){
+//     console.log("max element");
+//     outData[0] = array.indexOf(Math.max(...array));
+//     outData[1] = outData[0];
+//   }
+//   return outData;
+// }
 
 let inDataRandom = [];
 let inData = [10, 31, -41, 59, 26, -53, 58, 97, -93, -23, 84];
-let txtData = [10, 31, -41, 59, 26, -53, 58, 97, -93, -23, 84];
-for (let i = getRandomInt(0, 10000); i > 0; i--) {
+// let txtData = [10, 31, -41, 59, 26, -53, 58, 97, -93, -23, 84];
+for (let i = getRandomInt(9999, 10000); i > 0; i--) {
   inData.push(getRandomInt(-100000, 100000));
 }
-
+// console.table(inData);
+// let dataMinus = [-10,-9,-8,-7,-6,-5,-4,-3,-2,-1];
 inData.splice(0, 1);
 console.log(algorithmA(inData));
-console.log(algorithmA(txtData));
+// console.log(algorithmA(txtData));
+// console.log(algorithmA(dataMinus));
 console.log(algorithmB(inData));
-console.log(algorithmB(txtData));
+// console.log(algorithmB(txtData));
+// console.log(algorithmB(dataMinus));
 console.log(algorithmC(inData));
-console.log(algorithmC(txtData));
+// console.log(algorithmC(txtData));
+// console.log(algorithmC(dataMinus));
 
-function readFromTxt(){
-  document.getElementById('openFile').addEventListener('change', function(){
-    const fr = new FileReader();
-    fr.onload = function() {
-      document.getElementById('fileContents').textContent = this.result;
-    }
-    fr.readAsText(this.files[0]);
-  });
-}
