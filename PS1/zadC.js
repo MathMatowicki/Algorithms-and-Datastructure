@@ -1,9 +1,9 @@
-function readFromTxt(){
-  document.getElementById('openFile').addEventListener('change', function(){
+function readFromTxt() {
+  document.getElementById("openFile").addEventListener("change", function() {
     const fr = new FileReader();
     fr.onload = function() {
-      document.getElementById('fileContents').textContent = this.result;
-    }
+      document.getElementById("fileContents").textContent = this.result;
+    };
     fr.readAsText(this.files[0]);
   });
 }
@@ -19,7 +19,8 @@ function getRandomInt(min, max) {
 }
 
 function algorithmA(array) {
-  let outData = [0, 0], finalSum = array[0],
+  let outData = [0, 0],
+    finalSum = array[0],
     sum = 0,
     counterOfConditions = 0;
   for (let i = 1; i < array.length; i++) {
@@ -39,7 +40,12 @@ function algorithmA(array) {
 }
 
 function algorithmB(array) {
-  let max = 0,  p = 0,k = 0,sum = 0, counter = 0, outData = [];
+  let max = 0,
+    p = 0,
+    k = 0,
+    sum = 0,
+    counter = 0,
+    outData = [];
   for (let i = 0; i < array.length; i++) {
     sum += array[i];
     counter++;
@@ -97,4 +103,3 @@ console.log(algorithmB(inData));
 console.log(algorithmC(inData));
 // console.log(algorithmC(txtData));
 // console.log(algorithmC(dataMinus));
-
