@@ -18,5 +18,5 @@ function factorialOfNumber(number) {
     return array
 }
 console.table(factorialOfNumber(25));
-console.log(newtonAlgorithmIteration(2, 1));
-console.log(newtonAlgorithmRecursion(2, 1));
+console.log(newtonAlgorithmIteration(15, 12));
+// console.log(newtonAlgorithmRecursion(2, 1));
