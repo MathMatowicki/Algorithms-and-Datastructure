@@ -10,10 +10,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author Mateo
@@ -59,28 +57,62 @@ public class Exercise2 {
         return a;
     }
 
+    public static int findKthElement(List<Integer> a, int k) {
+        if (a.size() < 10) {
+            Collections.sort(a);
+            return a.get(k);
+        }
+        ArrayList<Integer> medians = new ArrayList<Integer>();
+        for (int i = 0; i < a.size() - a.size() % 5; i = i + 5)
+            medians.add(getMedian(a.subList(i, i + 5)));
+        int v = getMedian(medians);
+
+        ArrayList<Integer> left = getPartition(a, v, true);
+        ArrayList<Integer> right = getPartition(a, v, false);
+
+        return (left.size() + 1 == k) ? v : (left.size() > k) ? findKthElement(
+                left, k) : findKthElement(right, k - left.size());
+    }
+
+    public static int getMedian(List<Integer> a) {
+        Collections.sort(a);
+        return a.get(a.size() / 2);
+    }
+
+    public static ArrayList<Integer> getPartition(List<Integer> a, int v,
+                                           boolean isLessThan) {
+        ArrayList<Integer> res = new ArrayList<Integer>();
+        for (int val : a)
+            if (isLessThan && val < v)
+                res.add(val);
+            else if (!isLessThan && val >= v)
+                res.add(val);
+        return res;
+    }
+
+
     /**
-     * @param tab
+     * @param array
      * @return
      */
-    public static int algorytm1(int[][] tab) throws FileNotFoundException {
-        int licznik = 0, znalezione = 0, liczba = 0, x = tab[0].length;
+    public static int algorytm1(int[][] array) throws FileNotFoundException {
+        int licznik = 0, znalezione = 0, liczba = 0, x = array[0].length;
         for (int i = 0; i < x; i++) {
             if (znalezione != 4) {
-                liczba = tab[0][i];
+                liczba = array[0][i];
                 znalezione = 0;
                 for (int j = 0; j < 4; j++) {
-                    for (int k = 0; k < tab[j].length; k++) {
-                        if (tab[j][k] > liczba) {
+                    for (int k = 0; k < array[j].length; k++) {
+                        if (array[j][k] > liczba) {
                             licznik++;
                             break;
                         }
-                        if (tab[j][k] == liczba) {
+                        if (array[j][k] == liczba) {
                             licznik++;
                             znalezione++;
                             break;
                         }
-                        if (tab[j][k] < liczba) {
+                        if (array[j][k] < liczba) {
                             licznik++;
                         }
                     }
@@ -160,14 +192,19 @@ public class Exercise2 {
         }
 
         zapis.println(Arrays.toString(listOfSqaures));
-        zapis.println( listOfSqaures[i] + " "+Arrays.toString(array[i]));
+        zapis.println(listOfSqaures[i] + " " + Arrays.toString(array[i]));
         zapis.close();
 
         return licznik;
     }
 
 
-    public int algorytm4(int[][] tab) {
+    public static int algorytm4(int[][] array) {
+        int licznik = 0;
+        int[] listOfSqaures = squareOfPlots(array);
+        List<Integer> list = new ArrayList<Integer>(listOfSqaures.length);
+        for (int i = 0; i < listOfSqaures.length; i++) list.add(Integer.valueOf(listOfSqaures[i]));
+        System.out.println("Rozwiazanie 4 algorytmu" + findKthElement(list,3));
         return 0;
     }
 
@@ -208,7 +245,7 @@ public class Exercise2 {
      */
     public static void main(String[] args) throws IOException {
         int[][] tab = null;
-        int x, l1 = 0, l2 = 0, l3 = 0;
+        int x, l1 = 0, l2 = 0, l3 = 0, l4 = 0;
         Scanner s = new Scanner(System.in);
         // System.out.println(Arrays.deepToString(tab));
         while (true) {
@@ -224,6 +261,7 @@ public class Exercise2 {
                     l1 = algorytm1(tab);
 //                    l2 = algorytm2(tab);
                     l3 = algorytm3(tab);
+                    l4 = algorytm4(tab);
                     break;
                 case 3:
                     System.out.println("licznik operacji w algorytmie 1 = " + l1 + "\nlicznik operacji w algorytmie 2 = " +
