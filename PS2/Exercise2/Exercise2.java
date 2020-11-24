@@ -11,16 +11,16 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * @author Mateo
  */
 public class Exercise2 {
+    public static int counter;
 
     public static int[] squareOfPlots(int[][] array) {
         int[] outArray = new int[array.length - 1];
-        int square = 0;
+        int square;
         for (int i = 0; i < outArray.length; i++) {
             square = (array[i][0] - array[i][2]) * (array[i][1] - array[i][3]);
             outArray[i] = square;
@@ -42,12 +42,20 @@ public class Exercise2 {
         System.out.println("*************4-Zakoncz program                   ************");
     }
 
-    public static int partition(int c[], int a, int b) {
+    public static int partition(int[] c, int a, int b) {
         int e, tmp;
         e = c[a];        //elemennt dzielacy
         while (a < b) {
-            while ((a < b) && (c[b] >= e)) b--;
-            while ((a < b) && (c[a] < e)) a++;
+
+            while ((a < b) && (c[b] >= e)){
+                counter++;
+                b--;
+            }
+            while ((a < b) && (c[a] < e)){
+                counter++;
+                a++;
+            }
+
             if (a < b) {
                 tmp = c[a];
                 c[a] = c[b];
@@ -90,11 +98,6 @@ public class Exercise2 {
         return res;
     }
 
-
-    /**
-     * @param array
-     * @return
-     */
     public static int algorytm1(int[][] array) throws FileNotFoundException {
         int licznik = 0, znalezione = 0, liczba = 0, x = array[0].length;
         for (int i = 0; i < x; i++) {
@@ -103,70 +106,70 @@ public class Exercise2 {
                 znalezione = 0;
                 for (int j = 0; j < 4; j++) {
                     for (int k = 0; k < array[j].length; k++) {
+                        licznik++;
                         if (array[j][k] > liczba) {
-                            licznik++;
                             break;
                         }
+                        licznik++;
                         if (array[j][k] == liczba) {
-                            licznik++;
                             znalezione++;
                             break;
                         }
+                        licznik++;
                         if (array[j][k] < liczba) {
-                            licznik++;
                         }
                     }
                 }
             } else {
-                System.out.println("Znaleziona liczba to:" + liczba);
+                System.out.println("Znaleziona liczba to: " + liczba);
                 return licznik;
             }
         }
-        System.out.println("Znaleziona liczba to:" + liczba);
+        System.out.println("Znaleziona liczba to: " + liczba);
         return licznik;
     }
 
     public static int algorytm2(int[][] tab) throws FileNotFoundException {
         int znalezione = 0, licznik = 0, x = tab[0].length, indeks = 0, liczba = -1;
         for (int i = 1; i < 5; i++) {
+            licznik++;
             if (x > tab[i].length) {
                 x = tab[i].length;
                 indeks = i;
-                licznik++;
             }
         }
         swapRows(tab, indeks, 4);
         for (int i = 0; i < x; i++) {
+            licznik++;
             if (znalezione != 4) {
                 liczba = tab[4][i];
                 znalezione = 0;
                 for (int j = 0; j < 4; j++) {
                     for (int k = 0; k < tab[j].length; k++) {
+                        licznik++;
                         if (tab[j][k] > liczba) {
-                            licznik++;
                             break;
                         }
+                        licznik++;
                         if (tab[j][k] == liczba) {
-                            licznik++;
+
                             znalezione++;
                             break;
                         }
+                        licznik++;
                         if (tab[j][k] < liczba) {
-                            licznik++;
                         }
                     }
                 }
             } else {
                 // System.out.println("Znaleziona liczba to:" + liczba);
                 swapRows(tab, indeks, 4);
-
                 return licznik;
             }
         }
         if (znalezione != 4) {
-            licznik = 0;
+        //    licznik = 0;
             swapRows(tab, indeks, 4);
-
             return licznik;
         }
         System.out.println("Znaleziona liczba to:" + liczba);
@@ -181,23 +184,22 @@ public class Exercise2 {
         PrintWriter zapis = new PrintWriter("c:/Users/matow/Dev/Algorithms-and-Datastructure/PS2/Exercise2/out2.txt");
 
         while (i != j) {
+            licznik++;
             k = partition(listOfSqaures, i, j);
             k = k - i + 1;
-            licznik++;
             if (k >= w) j = i + k - 1;
             if (k < w) {
                 w -= k;
                 i += k;
             }
         }
-
+        Arrays.sort(listOfSqaures);
         zapis.println(Arrays.toString(listOfSqaures));
         zapis.println(listOfSqaures[i] + " " + Arrays.toString(array[i]));
         zapis.close();
 
         return licznik;
     }
-
 
     public static int algorytm4(int[][] array) {
         int licznik = 0;
@@ -209,7 +211,7 @@ public class Exercise2 {
     }
 
     public static int[][] wczytaj() throws FileNotFoundException {
-        String nazwaPliku = "c:/Users/matow/Dev/Algorithms-and-Datastructure/PS2/Exercise2/data.txt";
+        String nazwaPliku = "c:/Users/matow/Dev/Algorithms-and-Datastructure/PS2/Exercise2/data3.txt";
         int[][] tab = null;
         int liczba;
         BufferedReader br = new BufferedReader(new FileReader(nazwaPliku));
@@ -217,7 +219,7 @@ public class Exercise2 {
         String[] podzielonaLinia = null;
         try {
             for (int i = 0; (linia = br.readLine()) != null; i++) {
-                podzielonaLinia = linia.split(" ");
+                podzielonaLinia = linia.split("\t");
                 for (int j = 0; j < podzielonaLinia.length; j++) {
                     liczba = Integer.parseInt(podzielonaLinia[j].trim());
                     if (i == 0) {
@@ -232,7 +234,6 @@ public class Exercise2 {
                     }
                 }
             }
-
         } catch (IOException | NumberFormatException e) {
             System.err.println("Wystapil blad przy wczytywaniu danych");
         }
@@ -259,13 +260,13 @@ public class Exercise2 {
                 case 2:
                     System.out.println("Tablica pól  " + Arrays.toString(squareOfPlots(tab)));
                     l1 = algorytm1(tab);
-//                    l2 = algorytm2(tab);
+                    l2 = algorytm2(tab);
                     l3 = algorytm3(tab);
-                    l4 = algorytm4(tab);
+//                    l4 = algorytm4(tab);
                     break;
                 case 3:
                     System.out.println("licznik operacji w algorytmie 1 = " + l1 + "\nlicznik operacji w algorytmie 2 = " +
-                            "" + l2 + "\nlicznik operacji w algorytmie 3 = " + l3);
+                            "" + l2 + "\nlicznik operacji w algorytmie 3 = " + counter);
                     break;
                 case 4:
                     return;
