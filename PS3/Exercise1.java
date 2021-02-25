@@ -17,7 +17,7 @@ Dane:
 n=12
 [1,2), [3,5), [0,4), [6,8), [7,13), [4,6), [9,12), [11,14), [15,19), [14,16), [18,20)
 Wynik:
-Maksymalny czas trwania wykładów: 16
+Maksymalny czas trwania wykładów: 15
 Wykłady: [0,4), [4,6), [7,13), [15,19)
  */
 public class Exercise1 {
